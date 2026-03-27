@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Admin Dashboard — FJS Topografia</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{font-family:'Inter',sans-serif;background:#0A0E27;color:#F8FAFC;}
+  </style>
+
+  <link rel="stylesheet" href="./assets/css/admin.css">
+  <link rel="icon" href="./assets/images/logo3.png" type="image/png">
+</head>
+<body class="admin-page">
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- ═══ LOGIN SCREEN ═════════════════════════════════ -->
+  <div id="login-screen" class="auth-container">
+    <div class="auth-backdrop"></div>
+    <div class="auth-card">
+      <div class="auth-card__glow"></div>
+      <div class="auth-brand">
+        <img src="./assets/images/logo3.png" alt="Logo FJS" class="auth-logo" width="56" height="56">
+        <h1>FJS <span>Topografia</span></h1>
+        <p class="auth-subtitle">Painel de Administração</p>
+      </div>
+
+      <form id="login-form" novalidate>
+        <div class="form-group">
+          <label for="login-email">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            Usuário
+          </label>
+          <input type="text" id="login-email" name="email" placeholder="admin" required autocomplete="username">
+        </div>
+        <div class="form-group">
+          <label for="login-password">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            Senha
+          </label>
+          <input type="password" id="login-password" name="password" placeholder="••••••••" required autocomplete="current-password">
+        </div>
+        <button type="submit" class="btn btn-primary btn-login">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+          Entrar
+        </button>
+        <div id="login-error" class="error-message"></div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ═══ ADMIN DASHBOARD ══════════════════════════════ -->
+  <div id="admin-dashboard" class="admin-dashboard" style="display:none;">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-brand">
+          <img src="./assets/images/logo3.png" alt="Logo" width="40" height="40">
+          <div class="sidebar-brand__text">
+            <h2>FJS Admin</h2>
+            <span class="sidebar-brand__version">v2.0</span>
+          </div>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <p class="sidebar-nav__label">Mídia</p>
+        <button class="nav-btn" data-section="service-images">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          <span>Novas Fotos</span>
+        </button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <button class="nav-btn logout" id="logout-btn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          <span>Sair</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- OVERLAY MOBILE -->
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+    <!-- MAIN CONTENT -->
+    <div class="admin-main">
+
+      <!-- TOPBAR -->
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="topbar-toggle" id="sidebar-toggle" aria-label="Abrir menu">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="15" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          </button>
+          <div class="topbar-breadcrumb" id="topbar-breadcrumb">
+            <span class="breadcrumb-home">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            </span>
+            <span class="breadcrumb-sep">/</span>
+            <span class="breadcrumb-current">Novas Fotos</span>
+          </div>
+        </div>
+        <div class="topbar-right">
+          <div class="topbar-status" id="topbar-status">
+            <span class="status-dot"></span>
+            <span>Online</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- NOVAS FOTOS SECTION -->
+      <div id="section-service-images" class="admin-section active">
+        <div class="section-intro">
+          <div class="section-intro__text">
+            <h1>Novas Fotos</h1>
+            <p>Gerencie as fotos exibidas nas páginas de serviço</p>
+          </div>
+        </div>
+
+        <div class="service-filter-bar">
+          <div class="form-group">
+            <label for="service-image-upload">Adicionar foto</label>
+            <input type="file" id="service-image-upload" accept="image/jpeg,image/png,image/webp">
+          </div>
+          <div class="form-group">
+            <label for="service-image-service">Serviço</label>
+            <select id="service-image-service" class="select-input">
+              <option value="__all__">Todos os serviços</option>
+              <option value="">Selecione um serviço</option>
+              <option value="levantamento-topografico">Levantamento Topográfico</option>
+              <option value="nivelamento">Nivelamento</option>
+              <option value="demarcacao">Demarcação</option>
+              <option value="locacao-de-obra">Locação de Obra</option>
+              <option value="calculo-de-volumetria">Cálculo de Volumetria</option>
+              <option value="georreferenciamento">Georreferenciamento</option>
+              <option value="analise-por-drone">Análise por Drone</option>
+            </select>
+          </div>
+          <button type="button" class="btn btn-primary" id="add-service-image-btn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Adicionar foto
+          </button>
+        </div>
+
+        <div id="service-images-list" class="posts-table">
+          <div class="empty-state">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <p>Selecione um serviço para ver as imagens.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══ MODAL: Confirmação Exclusão ══════════════════ -->
+  <div id="delete-modal" class="modal modal-small">
+    <div class="modal-content">
+      <div class="modal-header modal-header--danger">
+        <h2 id="delete-modal-title">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          Excluir Postagem
+        </h2>
+        <button class="close-modal" aria-label="Fechar">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="modal-body modal-body--center">
+        <div class="delete-illustration">
+          <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>
+        </div>
+        <p class="delete-text" id="delete-modal-text">Tem certeza que deseja <strong>excluir esta postagem</strong>?</p>
+        <p class="delete-warning">Esta ação não pode ser desfeita.</p>
+
+        <div class="modal-footer modal-footer--center">
+          <button type="button" class="btn btn-ghost close-modal-btn">Cancelar</button>
+          <button type="button" class="btn btn-danger" id="confirm-delete-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+            Excluir
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ SCRIPTS ══════════════════════════════════════ -->
+  <script src="./assets/js/api.js" defer></script>
+  <script src="./assets/js/admin.js" defer></script>
+</body>
+</html>
