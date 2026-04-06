@@ -193,9 +193,9 @@
 
   <!-- ═══ SCRIPTS ══════════════════════════════════════ -->
   <script>
-    // URL da API backend — substitua pelo domínio real após deploy na Vercel
-    // Exemplo: window.__FJS_API_BASE__ = 'https://backend-fjr.vercel.app/api';
-    window.__FJS_API_BASE__ = '';
+    // Backend em produção (domínio fixo). Não use URL de preview (*.vercel.app por deploy) — muda a cada release.
+    // CORS: na Vercel do backend, ALLOWED_ORIGINS deve incluir https://paineladmfjr.vercel.app (e o domínio customizado, se houver).
+    window.__FJS_API_BASE__ = 'https://backend-fjr.vercel.app/api';
   </script>
   <script src="./assets/js/api.js" defer></script>
   <script src="./assets/js/admin.js" defer></script>
